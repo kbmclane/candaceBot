@@ -1,5 +1,7 @@
 package com.candaceBot.Models;
 
+import net.dv8tion.jda.api.entities.User;
+
 import java.lang.String;
 import java.util.List;
 
@@ -16,15 +18,15 @@ import java.util.List;
  */
 public class Assignee{
     public String name;
-    private String discordName;
+    private User user;
     private List<Chore> responsibilities;
     private int streak;
     private boolean admin;
     private String timeZone;
 
-    public Assignee(String name, String userName, boolean admin){
+    public Assignee(String name, User userName, boolean admin){
         this.name = name;
-        this.discordName = userName;
+        this.user = userName;
         this.admin = admin;
         streak = 0;
     }
