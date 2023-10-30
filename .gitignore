@@ -42,4 +42,4 @@ bin/
 .DS_Store
 
 #Token
-resources/token.txt
+src/main/resources/token.txt
