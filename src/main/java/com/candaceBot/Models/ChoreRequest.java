@@ -1,4 +1,4 @@
-package com.candaceBot.models;
+package com.candaceBot.Models;
 
 /**
  * ChoreRequest obj
