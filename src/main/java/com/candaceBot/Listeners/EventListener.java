@@ -1,11 +1,17 @@
 package com.candaceBot.Listeners;
 
+import com.candaceBot.BotInit.PostBotBuild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class EventListener extends ListenerAdapter {
+    static final Logger logger = LoggerFactory.getLogger(PostBotBuild.class);
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event)
     {
@@ -18,8 +24,18 @@ public class EventListener extends ListenerAdapter {
         if (content.equals("!ping"))
         {
             event.getAuthor().openPrivateChannel()
-                    .flatMap(channel -> channel.sendMessage("Pong!"))
+                    .flatMap(channel -> channel.sendMessage(String.format("there are %s members in this discord.", event.getGuild().getMembers().size())))
                     .queue();
+
+            logger.info(String.format("event: %s", event.getGuild().getName()));
+        }
+    }
+
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        if (event.getName().equals("optin")) {
+            event.deferReply().queue(); // Tell discord we received the command, send a thinking... message to the user
+            event.getHook().sendMessage("hi").queue(); // delayed response updates our inital "thinking..." message with the tag value
         }
     }
 }

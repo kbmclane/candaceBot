@@ -18,6 +18,7 @@ public class Chore {
     private boolean completed;
     private String frequency;
     private List<String> tags;
+    private boolean overdue;
     public String name;
     ZonedDateTime dueDate;
     public Chore(String name, Assignee person,

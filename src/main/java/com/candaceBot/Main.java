@@ -1,9 +1,11 @@
 package com.candaceBot;
 
+import com.candaceBot.BotInit.PostBotBuild;
 import com.candaceBot.Listeners.EventListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import java.nio.file.*;
@@ -20,6 +22,6 @@ public class Main {
         // Set activity (like "playing Something")
         builder.setActivity(Activity.customStatus("Managing your chores!"));
         JDA bot = builder.build();
-        bot.addEventListener(new EventListener());
+        PostBotBuild.botRoutines(bot);
     }
 }
