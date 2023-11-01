@@ -3,14 +3,16 @@ package com.candaceBot.Listeners;
 import com.candaceBot.BotInit.PostBotBuild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
+import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class EventListener extends ListenerAdapter {
-    static final Logger logger = LoggerFactory.getLogger(PostBotBuild.class);
+    static final Logger logger = LoggerFactory.getLogger(EventListener.class);
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event)
@@ -33,6 +35,48 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        /*switch(event.getName()){
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            case "optin":
+                break;
+            default:
+                break;
+        }*/
         if (event.getName().equals("optin")) {
             event.deferReply().queue(); // Tell discord we received the command, send a thinking... message to the user
             event.getHook().sendMessage("hi").queue(); // delayed response updates our inital "thinking..." message with the tag value
