@@ -44,3 +44,4 @@ bin/
 
 #Token
 src/main/resources/token.txt
+src/main/resources/Jsons/*

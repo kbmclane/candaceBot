@@ -1,17 +1,22 @@
 package com.candaceBot.BotInit;
 
 import com.candaceBot.Listeners.EventListener;
+import com.candaceBot.Models.Household;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.restaction.GuildAction;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
+import java.util.Date;
+
 public class PostBotBuild {
     static final Logger logger = LoggerFactory.getLogger(PostBotBuild.class);
-
+    String houseHoldPath = "";
     public static void botRoutines(JDA bot) {
         bot.addEventListener(new EventListener());
         logger.info(String.format("Candace is ready on %s servers", bot.getGuilds().size()));
@@ -19,6 +24,8 @@ public class PostBotBuild {
                 Commands.slash("optin", "Opt into the chore bot")
                         .setGuildOnly(true),
                 Commands.slash("optout", "Opt out of the chore bot")
+                        .setGuildOnly(true),
+                Commands.slash("configure", "Configure the household for Candace")
                         .setGuildOnly(true),
                 Commands.slash("promote", "Promote user to Candace Admin")
                         .setGuildOnly(true),
@@ -61,6 +68,12 @@ public class PostBotBuild {
                 Commands.slash("remindtaggedchores", "Remind all chores with a certain tag")
                         .setGuildOnly(true)
         ).queue();
+        JSONObject households = new JSONObject();
+        for (Guild g: bot.getGuilds()
+             ) {
+            Household house = new Household(g.getName(), Instant.now().toString(), "utc");
+
+        }
 
     }
 }

@@ -1,5 +1,8 @@
 package com.candaceBot.Models;
 
+import java.util.HashMap;
+import java.util.List;
+
 /*Household Obj
 - members
     - householdName: string
@@ -13,5 +16,19 @@ package com.candaceBot.Models;
     * storeEnabled: bool
     * store: Store*/
     public class Household{
+        public String householdName;
+        public String reminderDay;
+        private List<Assignee> members;
+        private List<Assignee> admins;
+        //server info
+        private List<Chore> chores;
+        private HashMap<String, Chore> tagDict;
+        private String timeZone;
+
+        public Household(String name, String remindDay, String zone){
+            this.householdName = name;
+            reminderDay = remindDay;
+            timeZone = zone;
+        }
 
 }
