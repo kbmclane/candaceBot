@@ -16,7 +16,7 @@ import java.nio.file.*;
 public class Main {
     static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws Exception{
-        String token = new String(Files.readAllBytes(Paths.get("C:\\Users\\k\\IdeaProjects\\candaceBot\\src\\main\\resources\\token.txt")));
+        String token = new String(Files.readAllBytes(Paths.get("src/main/resources/token.txt")));
         JDABuilder builder = JDABuilder.createDefault(token,GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS);
         //builder.addEventListeners(new ReadyListener());
 
@@ -29,6 +29,7 @@ public class Main {
         JDA candace = builder.build();
         candace.awaitReady();
         PostBotBuild.botRoutines(candace);
+        logger.info(String.format("Candace is ready on %s servers", candace.getGuilds().size()));
 
 
     }

@@ -45,6 +45,9 @@ public class EventListener extends ListenerAdapter {
                     logger.info(event.toString());
                     break;
                 case "optout":
+                    event.getUser().openPrivateChannel()
+                            .flatMap(channel -> channel.sendMessage("Goodbye"))
+                            .queue();
                     break;
                 case "promote":
                     break;
@@ -85,6 +88,8 @@ public class EventListener extends ListenerAdapter {
                 case "gettaggedchores":
                     break;
                 case "remindtaggedchores":
+                    break;
+                case "help":
                     break;
                 default:
                     break;

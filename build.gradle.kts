@@ -22,6 +22,10 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.2.8")
     implementation("org.json:json:20210307")
 }
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
+}
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
