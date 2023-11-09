@@ -42,6 +42,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-#Token
+#Privacy stuffs
 src/main/resources/token.txt
 src/main/resources/Jsons/*
