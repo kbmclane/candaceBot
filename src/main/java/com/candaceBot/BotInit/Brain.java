@@ -40,6 +40,7 @@ public class Brain {
                 JSONObject brain = new JSONObject(new JSONTokener(content));
                 for (Guild g : bot.getGuilds()) {
                     if (!brain.has(g.getId())) {
+                        logger.info(String.format("Missing %s server - Adding now.", g.getName()));
                         Household h = new Household(g);
                         brain.put(g.getId(), h.populateHouseJson());
                     }

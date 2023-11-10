@@ -6,6 +6,9 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
+application {
+    mainClass.set("com.candaceBot.Main")
+}
 
 group = "com.candaceBot"
 version = "1.0-SNAPSHOT"
@@ -37,10 +40,10 @@ tasks.withType<JavaCompile> {
     sourceCompatibility = "1.8"
 }
 
-tasks.withType<JavaExec>{
-    systemProperties["TOKEN_PATH"] = project.property("TOKEN_PATH") as String
-    systemProperties["DEFAULT_REMIND_DAY"] = project.property("DEFAULT_REMIND_DAY") as String
-    systemProperties["DEFAULT_TIME_ZONE"] = project.property("DEFAULT_TIME_ZONE") as String
+tasks.withType<JavaExec> {
+    systemProperty("TOKEN_PATH", project.findProperty("TOKEN_PATH") ?: "defaultTokenPath")
+    systemProperty("DEFAULT_REMIND_DAY", project.findProperty("DEFAULT_REMIND_DAY") ?: "defaultRemindDay")
+    systemProperty("DEFAULT_TIME_ZONE", project.findProperty("DEFAULT_TIME_ZONE") ?: "defaultTimeZone")
 }
 
 tasks.test {
