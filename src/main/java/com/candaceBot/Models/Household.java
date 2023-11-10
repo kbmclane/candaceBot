@@ -21,8 +21,8 @@ import java.util.List;
     * storeEnabled: bool
     * store: Store*/
     public class Household{
-        private static final String defaultRemindDay = "* * * * 3";
-        private static final String defaultTimeZone = "utc";
+        private static final String defaultRemindDay = System.getProperty("DEFAULT_REMIND_DAY");
+        private static final String defaultTimeZone = System.getProperty("DEFAULT_TIME_ZONE");
         public String householdName;
         public String reminderDay;
         private List<Assignee> members;
