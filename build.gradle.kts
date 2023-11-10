@@ -7,7 +7,6 @@ plugins {
 }
 
 
-
 group = "com.candaceBot"
 version = "1.0-SNAPSHOT"
 
@@ -36,6 +35,12 @@ tasks.withType<JavaCompile> {
     // Set this to the version of java you want to use,
     // the minimum required for JDA is 1.8
     sourceCompatibility = "1.8"
+}
+
+tasks.withType<JavaExec>{
+    systemProperties["TOKEN_PATH"] = project.property("TOKEN_PATH") as String
+    systemProperties["DEFAULT_REMIND_DAY"] = project.property("DEFAULT_REMIND_DAY") as String
+    systemProperties["DEFAULT_TIME_ZONE"] = project.property("DEFAULT_TIME_ZONE") as String
 }
 
 tasks.test {

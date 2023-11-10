@@ -1,0 +1,6 @@
+#Path for where bot token is stored
+TOKEN_PATH="Path from repo root"
+#Default remind day is wednesdays. Used in household creation and assignee creations. Remind days are in cron schedules
+DEFAULT_REMIND_DAY="* * * * 3"
+#Default time zone is UTC. Used in household creation and assignee creations.
+DEFAULT_TIME_ZONE = "utc"
