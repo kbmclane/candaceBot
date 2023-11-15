@@ -1,7 +1,5 @@
 package com.candaceBot.BotInit;
 
-import com.candaceBot.Listeners.EventListener;
-import com.candaceBot.BotInit.Brain;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.slf4j.Logger;

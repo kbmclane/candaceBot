@@ -3,7 +3,7 @@ package com.candaceBot.Utils;
 import net.dv8tion.jda.api.entities.Member;
 
 public class MessageUtils {
-    public static void notifyOwnerBotAdded(Member owner, String guildName){
+    public static void notifyOwnerServerAdded(Member owner, String guildName){
         owner.getUser().openPrivateChannel()
                 .flatMap(pm -> pm.sendMessage(
                         String.format("Thank you for adding Candace to the **%s** server!" +
@@ -14,7 +14,7 @@ public class MessageUtils {
                                 guildName, guildName)))
                 .queue();
     }
-    public static void notifyOwnerBotExists(Member owner, String guildName){
+    public static void notifyOwnerServerAlreadyExists(Member owner, String guildName){
         owner.getUser().openPrivateChannel()
                 .flatMap(pm -> pm.sendMessage(
                         String.format("Candace bot already exists on the **%s** server." +
@@ -24,6 +24,17 @@ public class MessageUtils {
                 .queue();
     }
     public static void notifyOwnerBrainError(Member owner, String guildName){
+        owner.getUser().openPrivateChannel()
+                .flatMap(pm -> pm.sendMessage(
+                        String.format("Thank you for your interest in Candace bot." +
+                                        "\nCandace is excited to join the %s household," +
+                                        "\nhowever we're experiencing some technical difficulties!" +
+                                        "\nPlease try again later!" +
+                                        "\n### If you did not add Candace to your server, check in with your admins or your server settings.",
+                                guildName)))
+                .queue();
+    }
+    public static void notifyOwnerServerRemoved(Member owner, String guildName){
         owner.getUser().openPrivateChannel()
                 .flatMap(pm -> pm.sendMessage(
                         String.format("Thank you for your interest in Candace bot." +

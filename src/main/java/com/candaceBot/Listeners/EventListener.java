@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -23,16 +24,19 @@ public class EventListener extends ListenerAdapter {
     public void onGuildJoin(GuildJoinEvent event) {
         Guild guild = event.getGuild();
         Household h = new Household(guild);
-        logger.info("%s server has added Candace - Updating brain");
+        logger.info("%s server has added Candace - Updating brain", h.getHouseholdName());
         b.addHousehold(h);
+    }
 
-
-        // Perform any additional setup or logging you need here
+    @Override
+    public void onGuildLeave(GuildLeaveEvent event) {
+        Guild guild = event.getGuild();
+        logger.info("%s server has removed Candace :( - Updating brain", guild.getName());
+        b.removeHousehold(guild);
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        logger.info("just got a teeexxxxtttt");
         if (event.getAuthor().isBot()) return;
         if (!event.isFromGuild()) {
             event.getAuthor().openPrivateChannel()

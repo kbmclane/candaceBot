@@ -33,6 +33,11 @@ public class Main {
         candace.awaitReady();
         PostBotBuild.botRoutines(candace);
         logger.info(String.format("Candace is ready on %s servers", candace.getGuilds().size()));
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if(candace != null){
+                candace.shutdownNow();
+            }
+        }));
 
 
     }

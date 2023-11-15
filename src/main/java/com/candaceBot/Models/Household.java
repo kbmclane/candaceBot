@@ -24,7 +24,7 @@ import java.util.List;
     public class Household{
         private static final String defaultRemindDay = System.getProperty("DEFAULT_REMIND_DAY");
         private static final String defaultTimeZone = System.getProperty("DEFAULT_TIME_ZONE");
-        public String householdName;
+        private String householdName;
         public String reminderDay;
         private List<Assignee> members;
         private List<Assignee> choreAdmins;
@@ -66,7 +66,6 @@ import java.util.List;
         houseJson.put("chores", Collections.emptyList());
         houseJson.put("timeZone", timeZone);
         houseJson.put("remindDay", reminderDay);
-        MessageUtils.notifyOwnerBotAdded(owner, householdName);
         return houseJson;
     }
     public String getId() {
@@ -74,5 +73,8 @@ import java.util.List;
     }
     public Member getOwner(){
             return owner;
+    }
+    public String getHouseholdName(){
+            return householdName;
     }
 }
