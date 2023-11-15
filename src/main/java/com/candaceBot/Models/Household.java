@@ -1,5 +1,6 @@
 package com.candaceBot.Models;
 
+import com.candaceBot.Utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import org.json.JSONObject;
@@ -33,18 +34,21 @@ import java.util.List;
         private List<Chore> chores;
         private HashMap<String, Chore> tagDict;
         private String timeZone;
+        Member owner;
 
         public Household(Guild g, String remindDay, String zone){
             householdName = g.getName();
             reminderDay = remindDay;
             timeZone = zone;
             house = g;
+            owner = g.retrieveOwner().submit().join();
         }
     public Household(Guild g){
         householdName = g.getName();
         reminderDay = defaultRemindDay;
         timeZone = defaultRemindDay;
         house = g;
+        owner = g.retrieveOwner().submit().join();
     }
         public void addAdmin(){}
         public void addUser(){}
@@ -54,8 +58,7 @@ import java.util.List;
         public void addTag(){}
         public void updateTag(){}
         public void removeTag(){}
-    public JSONObject populateHouseJson(){
-        Member owner = house.retrieveOwner().submit().join();
+    public JSONObject initiateHouseJson(){
         JSONObject houseJson = new JSONObject();
         houseJson.put("name", householdName);
         houseJson.put("choreAdmins", List.of(owner.getId()));
@@ -63,17 +66,13 @@ import java.util.List;
         houseJson.put("chores", Collections.emptyList());
         houseJson.put("timeZone", timeZone);
         houseJson.put("remindDay", reminderDay);
-        notifyOwnerBotAdded(owner, householdName);
+        MessageUtils.notifyOwnerBotAdded(owner, householdName);
         return houseJson;
     }
-    public static void notifyOwnerBotAdded(Member owner, String guildName){
-        owner.getUser().openPrivateChannel()
-                .flatMap(pm -> pm.sendMessage(
-                        String.format("Thank you for adding Candace to the **%s** server!" +
-                                        "\nAs the server owner, you are automatically added as a member and an choreAdmin." +
-                                        "\nTo configure, type `/configure` in any **%s** text channels." +
-                                        "\nType `/help` for the 411 on all of my commands!",
-                                guildName, guildName)))
-                .queue();
+    public String getId() {
+        return house.getId();
+    }
+    public Member getOwner(){
+            return owner;
     }
 }

@@ -10,6 +10,7 @@ public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        logger.info("just got a teeexxxxtttt");
         if (event.getUser().isBot()) return;
         if (!event.isFromGuild()) {
             logger.info(event.getFullCommandName());

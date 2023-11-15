@@ -1,5 +1,6 @@
 package com.candaceBot.Listeners;
 
+import com.candaceBot.BotInit.Brain;
 import com.candaceBot.BotInit.PostBotBuild;
 import com.candaceBot.Models.Household;
 import net.dv8tion.jda.api.entities.Guild;
@@ -17,30 +18,26 @@ import org.slf4j.LoggerFactory;
 public class EventListener extends ListenerAdapter {
     static final Logger logger = LoggerFactory.getLogger(EventListener.class);
 
+    Brain b = new Brain();
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
         Guild guild = event.getGuild();
         Household h = new Household(guild);
         logger.info("%s server has added Candace - Updating brain");
+        b.addHousehold(h);
+
 
         // Perform any additional setup or logging you need here
     }
 
-    /*@Override
+    @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        logger.info("just got a teeexxxxtttt");
         if (event.getAuthor().isBot()) return;
-        // We don't want to respond to other bot accounts, including ourself
-        Message message = event.getMessage();
-        String content = message.getContentRaw();
-        // getContentRaw() is an atomic getter
-        // getContentDisplay() is a lazy getter which modifies the content for e.g. console view (strip discord formatting)
-        if (content.equals("!ping")) {
+        if (!event.isFromGuild()) {
             event.getAuthor().openPrivateChannel()
-                    .flatMap(channel -> channel.sendMessage(String.format("there are %s members in this discord.", event.getGuild().getMembers().size())))
+                    .flatMap(channel -> channel.sendMessage("Please contact me through a discord channel <3"))
                     .queue();
-
-            logger.info(String.format("event: %s", event.getGuild().getName()));
         }
-    }*/
-
+    }
 }

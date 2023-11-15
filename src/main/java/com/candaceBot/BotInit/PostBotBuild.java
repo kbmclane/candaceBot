@@ -9,10 +9,9 @@ import org.slf4j.LoggerFactory;
 
 public class PostBotBuild {
     static final Logger logger = LoggerFactory.getLogger(PostBotBuild.class);
-    static String brainPath = "src/main/resources/Jsons/brain.json";
     public static void botRoutines(JDA bot) {
-        logger.info("Adding Event Listener");
-        bot.addEventListener(new EventListener());
+        logger.info("Adding the brain!");
+        Brain.brainAlive(bot);
         bot.updateCommands().addCommands(
                 Commands.slash("optin", "Opt into the chore bot")
                         .setGuildOnly(true),
@@ -62,6 +61,5 @@ public class PostBotBuild {
                         .setGuildOnly(true),
                 Commands.slash("help", "Get the 411 on all of the commands!")
         ).queue();
-        Brain.brainAlive(bot);
     }
 }

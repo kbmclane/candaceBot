@@ -8,6 +8,11 @@ plugins {
 
 application {
     mainClass.set("com.candaceBot.Main")
+    applicationDefaultJvmArgs = listOf(
+            "-DTOKEN_PATH=${project.findProperty("TOKEN_PATH") ?: "defaultTokenPath"}",
+            "-DDEFAULT_REMIND_DAY=${project.findProperty("DEFAULT_REMIND_DAY") ?: "* * * * 4"}",
+            "-DDEFAULT_TIME_ZONE=${project.findProperty("DEFAULT_TIME_ZONE") ?: "utc"}"
+    )
 }
 
 group = "com.candaceBot"
@@ -40,11 +45,11 @@ tasks.withType<JavaCompile> {
     sourceCompatibility = "1.8"
 }
 
-tasks.withType<JavaExec> {
-    systemProperty("TOKEN_PATH", project.findProperty("TOKEN_PATH") ?: "defaultTokenPath")
-    systemProperty("DEFAULT_REMIND_DAY", project.findProperty("DEFAULT_REMIND_DAY") ?: "defaultRemindDay")
-    systemProperty("DEFAULT_TIME_ZONE", project.findProperty("DEFAULT_TIME_ZONE") ?: "defaultTimeZone")
-}
+//tasks.withType<JavaExec> {
+//    systemProperty("TOKEN_PATH", project.findProperty("TOKEN_PATH") ?: "defaultTokenPath")
+//    systemProperty("DEFAULT_REMIND_DAY", project.findProperty("DEFAULT_REMIND_DAY") ?: "defaultRemindDay")
+//    systemProperty("DEFAULT_TIME_ZONE", project.findProperty("DEFAULT_TIME_ZONE") ?: "defaultTimeZone")
+//}
 
 tasks.test {
     useJUnitPlatform()
