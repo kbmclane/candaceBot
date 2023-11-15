@@ -9,13 +9,13 @@ public class PostBotBuild {
     static final Logger logger = LoggerFactory.getLogger(PostBotBuild.class);
     public static void botRoutines(JDA bot) {
         logger.info("Adding the brain!");
-        Brain.brainAlive(bot);
+        Brain.populateBrain(bot);
         bot.updateCommands().addCommands(
-                Commands.slash("optin", "Opt into the chore bot")
+                Commands.slash("configure", "Configure one aspect of Candace")
+                                .setGuildOnly(true),
+                Commands.slash("optin", "Opt into Candace bot")
                         .setGuildOnly(true),
-                Commands.slash("optout", "Opt out of the chore bot")
-                        .setGuildOnly(true),
-                Commands.slash("configure", "Configure the household for Candace")
+                Commands.slash("optout", "Opt out of Candace bot")
                         .setGuildOnly(true),
                 Commands.slash("promote", "Promote user to Candace Admin")
                         .setGuildOnly(true),
@@ -23,7 +23,7 @@ public class PostBotBuild {
                         .setGuildOnly(true),
                 Commands.slash("getstreak", "Returns your chore Streak")
                         .setGuildOnly(true),
-                Commands.slash("gettimezone", "What is my time zone")
+                Commands.slash("gettimezone", "What is your time zone for me")
                         .setGuildOnly(true),
                 Commands.slash("settimezone", "Update your timezone")
                         .setGuildOnly(true),

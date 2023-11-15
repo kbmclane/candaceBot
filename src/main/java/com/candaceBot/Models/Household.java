@@ -1,11 +1,9 @@
 package com.candaceBot.Models;
 
-import com.candaceBot.Utils.MessageUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import org.json.JSONObject;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,51 +23,50 @@ import java.util.List;
         private static final String defaultRemindDay = System.getProperty("DEFAULT_REMIND_DAY");
         private static final String defaultTimeZone = System.getProperty("DEFAULT_TIME_ZONE");
         private String householdName;
-        public String reminderDay;
-        private List<Assignee> members;
-        private List<Assignee> choreAdmins;
+        private List<Object> choreAdmins;
         private static Guild house;
-        private String id;
-        //server info
-        private List<Chore> chores;
-        private HashMap<String, Chore> tagDict;
+        private String serverId;
+        private HashMap<String, String> tagDict;
         private String timeZone;
-        Member owner;
+        public String reminderDay;
+        private String ownerId;
+
+        private Member owner;
 
         public Household(Guild g, String remindDay, String zone){
             householdName = g.getName();
             reminderDay = remindDay;
             timeZone = zone;
             house = g;
+            ownerId = g.retrieveOwner().submit().join().getId();
             owner = g.retrieveOwner().submit().join();
         }
     public Household(Guild g){
         householdName = g.getName();
         reminderDay = defaultRemindDay;
         timeZone = defaultRemindDay;
+        serverId = g.getId();
         house = g;
-        owner = g.retrieveOwner().submit().join();
+        ownerId = g.retrieveOwner().submit().join().getId();
     }
-        public void addAdmin(){}
-        public void addUser(){}
-        public void addUsers(){}
-        public void addChore(){}
-        public void updateTimeZone(){}
-        public void addTag(){}
-        public void updateTag(){}
-        public void removeTag(){}
-    public JSONObject initiateHouseJson(){
+    public Household(JSONObject h){
+            householdName = h.getString("name");
+            serverId = h.getString("serverId");
+            choreAdmins = h.getJSONArray("choreAdmins").toList();
+            timeZone = h.getString("timeZone");
+            reminderDay = h.getString("remindDay");
+    }
+    public JSONObject toJson(){
         JSONObject houseJson = new JSONObject();
         houseJson.put("name", householdName);
-        houseJson.put("choreAdmins", List.of(owner.getId()));
-        houseJson.put("members", List.of(owner.getId()));
-        houseJson.put("chores", Collections.emptyList());
+        houseJson.put("serverId", serverId);
+        houseJson.put("choreAdmins", List.of(ownerId));
         houseJson.put("timeZone", timeZone);
         houseJson.put("remindDay", reminderDay);
         return houseJson;
     }
     public String getId() {
-        return house.getId();
+        return serverId;
     }
     public Member getOwner(){
             return owner;

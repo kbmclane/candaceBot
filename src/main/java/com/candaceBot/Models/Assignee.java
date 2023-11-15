@@ -1,8 +1,12 @@
 package com.candaceBot.Models;
 
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.lang.String;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,17 +22,26 @@ import java.util.List;
  */
 public class Assignee{
     public String name;
+    private String id;
     private User user;
-    private List<Chore> responsibilities;
     private int streak;
     private boolean admin;
     private String timeZone;
 
-    public Assignee(String name, User userName, boolean admin){
-        this.name = name;
-        this.user = userName;
-        this.admin = admin;
+    public Assignee(User u, Boolean isAdmin){
+        name = u.getEffectiveName();
+        id = u.getId();
         streak = 0;
+        admin = isAdmin;
+        timeZone = "utc";
+    }
+
+    public Assignee(JSONObject assignee){
+        name = assignee.getString("name");
+        id = assignee.getString("id");
+        streak = assignee.getInt("streak");
+        admin = assignee.getBoolean("admin");
+        timeZone = assignee.getString("timeZone");
     }
 
     public void incStreak() {
@@ -47,12 +60,6 @@ public class Assignee{
     public void demote(){
         admin = false;
     }
-    public void addChore(Chore newChore){
-        responsibilities.add(newChore);
-    }
-    public void removeChore(Chore oldChore){
-        responsibilities.remove(oldChore);
-    }
     public Assignee getAssignee(){
         return this;
     }
@@ -65,6 +72,17 @@ public class Assignee{
     public String getTimeZone(){
         return timeZone;
     }
+    public JSONObject toJson(){
+        JSONObject assignee = new JSONObject();
+        assignee.put("name", name);
+        assignee.put("id",id);
+        assignee.put("streak",streak);
+        assignee.put("admin",admin);
+        assignee.put("timeZone",timeZone);
+        return assignee;
+    }
+
+
     public void notify(String type, String message){
         switch(type.toLowerCase()){
             case "overdue": // chore overdue reminder

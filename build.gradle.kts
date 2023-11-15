@@ -30,6 +30,7 @@ dependencies {
     implementation("net.dv8tion:JDA:$jdaVersion")
     implementation("ch.qos.logback:logback-classic:1.2.8")
     implementation("org.json:json:20210307")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.12.3")
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_1_9

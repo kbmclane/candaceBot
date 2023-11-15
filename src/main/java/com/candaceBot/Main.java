@@ -3,7 +3,6 @@ package com.candaceBot;
 import com.candaceBot.BotInit.PostBotBuild;
 import com.candaceBot.Listeners.CommandListener;
 import com.candaceBot.Listeners.EventListener;
-import com.candaceBot.Listeners.ReadyListener;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
@@ -28,7 +27,7 @@ public class Main {
                 .setActivity(Activity.customStatus("Managing your chores!"))
                 .disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE)
                 .setBulkDeleteSplittingEnabled(false)
-                .addEventListeners(new EventListener(), new CommandListener(), new ReadyListener())
+                .addEventListeners(new EventListener(), new CommandListener())
                 .build();
         candace.awaitReady();
         PostBotBuild.botRoutines(candace);
@@ -38,7 +37,5 @@ public class Main {
                 candace.shutdownNow();
             }
         }));
-
-
     }
 }

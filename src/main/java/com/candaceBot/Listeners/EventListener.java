@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.api.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
@@ -24,15 +25,22 @@ public class EventListener extends ListenerAdapter {
     public void onGuildJoin(GuildJoinEvent event) {
         Guild guild = event.getGuild();
         Household h = new Household(guild);
-        logger.info("%s server has added Candace - Updating brain", h.getHouseholdName());
+        logger.info(String.format("%s server has added Candace - Updating brain.", h.getHouseholdName()));
         b.addHousehold(h);
     }
 
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
         Guild guild = event.getGuild();
-        logger.info("%s server has removed Candace :( - Updating brain", guild.getName());
+        logger.info(String.format("%s server has removed Candace :( - Updating brain.", guild.getName()));
         b.removeHousehold(guild);
+    }
+
+    @Override
+    public void onGuildUpdateName(GuildUpdateNameEvent event){
+        Guild g = event.getGuild();
+        logger.info(String.format("%s server has changed its name to %s - Updating brain.", event.getOldName(), g.getName()));
+        b.updateHouseholdName(g, event.getOldName());
     }
 
     @Override

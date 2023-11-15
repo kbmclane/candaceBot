@@ -54,9 +54,6 @@ public class Chore {
         name = newName;
     }
     public void setAssignee(Assignee newAssignee){
-        assignee.removeChore(this);
-        assignee = newAssignee;
-        assignee.addChore(this);
     }
     public void setFrequency(String newCron){
         frequency = newCron;
