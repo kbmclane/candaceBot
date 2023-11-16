@@ -47,7 +47,8 @@ import java.util.List;
         timeZone = defaultRemindDay;
         serverId = g.getId();
         house = g;
-        ownerId = g.retrieveOwner().submit().join().getId();
+        owner = g.retrieveOwner().submit().join();
+        ownerId = owner.getId();
     }
     public Household(JSONObject h){
             householdName = h.getString("name");

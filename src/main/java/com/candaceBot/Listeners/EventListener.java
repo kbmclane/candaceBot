@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -41,6 +42,13 @@ public class EventListener extends ListenerAdapter {
         Guild g = event.getGuild();
         logger.info(String.format("%s server has changed its name to %s - Updating brain.", event.getOldName(), g.getName()));
         b.updateHouseholdName(g, event.getOldName());
+    }
+
+    @Override
+    public void onGuildMemberRemove(GuildMemberRemoveEvent event){
+        Guild g = event.getGuild();
+        logger.info(String.format("%s has left %s server- Checking opt status - Updating brain.", event.getUser().getName(), g.getName()));
+        b.removeMembership(g, event.getUser());
     }
 
     @Override

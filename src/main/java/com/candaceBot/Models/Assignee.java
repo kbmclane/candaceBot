@@ -21,7 +21,7 @@ import java.util.List;
      * seePets
  */
 public class Assignee{
-    public String name;
+    private String name;
     private String id;
     private User user;
     private int streak;
@@ -34,14 +34,6 @@ public class Assignee{
         streak = 0;
         admin = isAdmin;
         timeZone = "utc";
-    }
-
-    public Assignee(JSONObject assignee){
-        name = assignee.getString("name");
-        id = assignee.getString("id");
-        streak = assignee.getInt("streak");
-        admin = assignee.getBoolean("admin");
-        timeZone = assignee.getString("timeZone");
     }
 
     public void incStreak() {
@@ -62,6 +54,12 @@ public class Assignee{
     }
     public Assignee getAssignee(){
         return this;
+    }
+    public String getName(){
+        return name;
+    }
+    public String getId(){
+        return id;
     }
     public void setName(String newName){
         name = newName;
